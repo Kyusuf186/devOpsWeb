@@ -55,7 +55,8 @@
                   <failOnMissingWebXml>false</failOnMissingWebXml>
                   <webResources>
                         <resource>
-                            <directory>target/dist</directory>
+                            <directory>target/classes</directory>
+			    <targetPath>ui/build</targetPath>	
                             <filtering>true</filtering>
                             <includes>
                                 <include>main/main.js</include>
