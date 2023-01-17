@@ -4,6 +4,16 @@ pipeline{
 			maven "maven3.8.6"
 		}
 		stages{
+			stage ('Build') {
+           		 steps {
+                		bat 'mvn -Dmaven.test.failure.ignore=true install'
+            			}
+            		post {
+                	success {
+                    		junit 'target/surefire-reports/**/*.xml' 
+               			 }
+            		}
+       		}
 			stage("build"){
 				steps{
 					bat 'mvn clean package'
