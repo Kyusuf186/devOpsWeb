@@ -4,15 +4,15 @@ pipeline{
 			maven "maven3.8.6"
 		}
 		stages{
-			stage ('Build') {
-           		 steps {
-                		bat 'mvn -Dmaven.test.failure.ignore=true install'
-            			}
-            		post {
-                	success {
-                    		junit 'target/surefire-reports/**/*.xml' 
-               			 }
+			stage ('to install packages') {
+           		steps {
+                	bat 'mvn -Dmaven.test.failure.ignore=true install'
             		}
+            	post {
+                	success {
+                    	junit 'target/surefire-reports/**/*.xml' 
+               		}
+            	}
        		}
 			stage("build"){
 				steps{
@@ -26,10 +26,10 @@ pipeline{
 				}
 			}
 			stage("deploy"){
-				 steps{
+				steps{
 
-                			deploy adapters: [tomcat9(credentialsId: '09f18ff8-4ba0-4f88-81be-b7d2ca9401be', path: '', url: 'http://localhost:8090/')], contextPath: null, war: '**/*.war'
-           			 }
+                	deploy adapters: [tomcat9(credentialsId: '09f18ff8-4ba0-4f88-81be-b7d2ca9401be', path: '', url: 'http://localhost:8090/')], contextPath: null, war: '**/*.war'
+           		}
 			}
 		}
 	}
